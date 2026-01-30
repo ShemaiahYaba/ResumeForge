@@ -1,3 +1,16 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "template-onyx",
+      "description": "Thumbnail for Onyx resume template, a classic single-column layout.",
+      "imageUrl": "https://images.unsplash.com/photo-1758844898896-956ccda94b59?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxyZXN1bWUlMjB0ZW1wbGF0ZXxlbnwwfHx8fDE3Njk3NjE5OTh8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "resume template"
+    },
+    {
+      "id": "template-sapphire",
+      "description": "Thumbnail for Sapphire resume template, a modern two-column layout.",
+      "imageUrl": "https://images.unsplash.com/photo-1554224155-cfa08c2a758f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxyZXN1bWUlMjBsYXlvdXR8ZW58MHx8fHwxNzY5ODA1ODkzfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "resume layout"
+    }
+  ]
 }

@@ -1,3 +1,121 @@
+"use client";
+
+import { useState, useEffect, useCallback } from 'react';
+import { Download, Loader2, Save, Share2 } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Skeleton } from '@/components/ui/skeleton';
+import { useToast } from '@/hooks/use-toast';
+import type { ResumeData } from '@/lib/types';
+import { initialData } from '@/lib/data';
+import ResumeForm from '@/components/resume-form';
+import ResumePreview from '@/components/resume-preview';
+
 export default function Home() {
-  return <></>;
+  const [resumeData, setResumeData] = useState<ResumeData | null>(null);
+  const [isSaving, setIsSaving] = useState(false);
+  const [lastSaved, setLastSaved] = useState<Date | null>(null);
+  const { toast } = useToast();
+
+  const handleSave = useCallback(
+    (data: ResumeData) => {
+      setIsSaving(true);
+      try {
+        localStorage.setItem('resumeData', JSON.stringify(data));
+        setLastSaved(new Date());
+        toast({
+          title: "Saved!",
+          description: "Your resume has been saved locally.",
+        });
+      } catch (error) {
+        console.error("Failed to save to localStorage", error);
+        toast({
+          variant: "destructive",
+          title: "Uh oh! Something went wrong.",
+          description: "There was a problem saving your resume.",
+        });
+      } finally {
+        setTimeout(() => setIsSaving(false), 1000);
+      }
+    },
+    [toast]
+  );
+
+  useEffect(() => {
+    try {
+      const savedData = localStorage.getItem('resumeData');
+      if (savedData) {
+        setResumeData(JSON.parse(savedData));
+      } else {
+        setResumeData(initialData);
+      }
+    } catch (error) {
+      console.error("Failed to load from localStorage", error);
+      setResumeData(initialData);
+    }
+  }, []);
+
+  // Auto-save logic
+  useEffect(() => {
+    if (!resumeData) return;
+
+    const handler = setTimeout(() => {
+      handleSave(resumeData);
+    }, 2000);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [resumeData, handleSave]);
+
+
+  const handlePrint = () => {
+    window.print();
+  };
+
+  if (!resumeData) {
+    return (
+      <div className="flex h-screen w-full items-center justify-center">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen flex flex-col">
+      <header className="no-print sticky top-0 z-10 flex h-16 items-center justify-between border-b bg-background/80 px-4 backdrop-blur-sm sm:px-6">
+        <h1 className="text-xl font-bold text-primary flex items-center gap-2">
+            <Share2 className="w-6 h-6"/>
+            ResumeForge
+        </h1>
+        <div className="flex items-center gap-2 sm:gap-4">
+          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+            {isSaving ? (
+              <>
+                <Loader2 className="h-4 w-4 animate-spin" />
+                <span>Saving...</span>
+              </>
+            ) : (
+               lastSaved && <span>Saved {lastSaved.toLocaleTimeString()}</span>
+            )}
+          </div>
+          <Button variant="outline" onClick={() => handleSave(resumeData)} disabled={isSaving}>
+            <Save />
+            <span className="hidden sm:inline ml-2">Save Now</span>
+          </Button>
+          <Button onClick={handlePrint}>
+            <Download />
+            <span className="hidden sm:inline ml-2">Download PDF</span>
+          </Button>
+        </div>
+      </header>
+      <main className="flex-1 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1fr_auto] gap-4 p-4 md:p-6">
+        <div className="no-print lg:max-w-3xl overflow-y-auto">
+          <ResumeForm resumeData={resumeData} setResumeData={setResumeData} />
+        </div>
+        <div className="flex justify-center items-start print-container">
+           <ResumePreview resumeData={resumeData} />
+        </div>
+      </main>
+    </div>
+  );
 }
