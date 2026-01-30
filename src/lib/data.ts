@@ -52,5 +52,5 @@ export const initialData: ResumeData = {
       ],
     },
   ],
-  template: 'onyx',
+  template: 'professional', // Updated to use new template
 };

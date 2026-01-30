@@ -6,7 +6,6 @@ import type { Template } from '@/lib/types';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
-import { cn } from '@/lib/utils';
 import { Card } from '@/components/ui/card';
 
 type TemplateSelectFormProps = {
@@ -14,9 +13,31 @@ type TemplateSelectFormProps = {
   onTemplateChange: (template: Template) => void;
 };
 
-const templates: { id: Template, name: string, imageId: string }[] = [
-    { id: 'onyx', name: 'Onyx', imageId: 'template-onyx' },
-    { id: 'sapphire', name: 'Sapphire', imageId: 'template-sapphire' },
+const templates: { id: Template; name: string; imageId: string; description: string }[] = [
+  { 
+    id: 'professional', 
+    name: 'Professional', 
+    imageId: 'template-professional',
+    description: 'Clean sidebar layout with blue accents'
+  },
+  { 
+    id: 'executive', 
+    name: 'Executive', 
+    imageId: 'template-executive',
+    description: 'Modern dark sidebar design'
+  },
+  { 
+    id: 'onyx', 
+    name: 'Onyx', 
+    imageId: 'template-onyx',
+    description: 'Classic single-column layout'
+  },
+  { 
+    id: 'sapphire', 
+    name: 'Sapphire', 
+    imageId: 'template-sapphire',
+    description: 'Contemporary two-column design'
+  },
 ];
 
 export default function TemplateSelectForm({ currentTemplate, onTemplateChange }: TemplateSelectFormProps) {
@@ -33,21 +54,28 @@ export default function TemplateSelectForm({ currentTemplate, onTemplateChange }
             <RadioGroupItem value={template.id} id={template.id} className="peer sr-only" />
             <Label
               htmlFor={template.id}
-              className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-2 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary cursor-pointer"
+              className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-2 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary cursor-pointer transition-all"
             >
-              {placeholder && (
-                <Card className="mb-2 overflow-hidden">
-                    <Image
-                        src={placeholder.imageUrl}
-                        alt={placeholder.description}
-                        width={300}
-                        height={424}
-                        data-ai-hint={placeholder.imageHint}
-                        className="object-cover transition-transform hover:scale-105"
-                    />
+              {placeholder ? (
+                <Card className="mb-2 overflow-hidden w-full">
+                  <Image
+                    src={placeholder.imageUrl}
+                    alt={placeholder.description}
+                    width={300}
+                    height={424}
+                    data-ai-hint={placeholder.imageHint}
+                    className="object-cover transition-transform hover:scale-105 w-full h-auto"
+                  />
                 </Card>
+              ) : (
+                <div className="mb-2 w-full h-40 bg-gray-200 rounded flex items-center justify-center">
+                  <span className="text-gray-500 text-sm">{template.name}</span>
+                </div>
               )}
-              <span className="font-semibold">{template.name}</span>
+              <div className="text-center">
+                <span className="font-semibold block">{template.name}</span>
+                <span className="text-xs text-muted-foreground">{template.description}</span>
+              </div>
             </Label>
           </div>
         );

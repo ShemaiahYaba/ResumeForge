@@ -26,7 +26,7 @@ export type Education = {
 };
 
 export type Skill = {
-  id:string;
+  id: string;
   name: string;
 };
 
@@ -36,7 +36,8 @@ export type SkillCategory = {
   skills: Skill[];
 };
 
-export type Template = 'onyx' | 'sapphire';
+// Updated to include the new templates
+export type Template = 'onyx' | 'sapphire' | 'professional' | 'executive';
 
 export type ResumeData = {
   personalInfo: PersonalInfo;

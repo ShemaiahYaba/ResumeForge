@@ -3,6 +3,8 @@
 import type { ResumeData } from '@/lib/types';
 import OnyxTemplate from './templates/onyx-template';
 import SapphireTemplate from './templates/sapphire-template';
+import ProfessionalTemplate from './templates/professional-template';
+import ExecutiveTemplate from './templates/executive-template';
 import { Card } from '@/components/ui/card';
 
 type ResumePreviewProps = {
@@ -16,8 +18,12 @@ export default function ResumePreview({ resumeData }: ResumePreviewProps) {
         return <OnyxTemplate data={resumeData} />;
       case 'sapphire':
         return <SapphireTemplate data={resumeData} />;
+      case 'professional':
+        return <ProfessionalTemplate data={resumeData} />;
+      case 'executive':
+        return <ExecutiveTemplate data={resumeData} />;
       default:
-        return <OnyxTemplate data={resumeData} />;
+        return <ProfessionalTemplate data={resumeData} />;
     }
   };
 

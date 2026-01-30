@@ -1,18 +1,19 @@
 "use client";
 
 import { useState, useEffect, useCallback } from 'react';
-import { Download, Loader2, Save, Share2 } from 'lucide-react';
+import { Download, Loader2, Save, Share2, FileText } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Skeleton } from '@/components/ui/skeleton';
 import { useToast } from '@/hooks/use-toast';
 import type { ResumeData } from '@/lib/types';
 import { initialData } from '@/lib/data';
+import { generateAndDownloadPDF } from '@/lib/pdf-generator';
 import ResumeForm from '@/components/resume-form';
 import ResumePreview from '@/components/resume-preview';
 
 export default function Home() {
   const [resumeData, setResumeData] = useState<ResumeData | null>(null);
   const [isSaving, setIsSaving] = useState(false);
+  const [isGeneratingPDF, setIsGeneratingPDF] = useState(false);
   const [lastSaved, setLastSaved] = useState<Date | null>(null);
   const { toast } = useToast();
 
@@ -67,6 +68,27 @@ export default function Home() {
     };
   }, [resumeData, handleSave]);
 
+  const handleDownloadPDF = async () => {
+    if (!resumeData) return;
+    
+    setIsGeneratingPDF(true);
+    try {
+      await generateAndDownloadPDF(resumeData);
+      toast({
+        title: "Success!",
+        description: "Your resume PDF has been downloaded.",
+      });
+    } catch (error) {
+      console.error("Failed to generate PDF:", error);
+      toast({
+        variant: "destructive",
+        title: "PDF Generation Failed",
+        description: "There was a problem generating your PDF. Please try again.",
+      });
+    } finally {
+      setIsGeneratingPDF(false);
+    }
+  };
 
   const handlePrint = () => {
     window.print();
@@ -84,27 +106,40 @@ export default function Home() {
     <div className="min-h-screen flex flex-col">
       <header className="no-print sticky top-0 z-10 flex h-16 items-center justify-between border-b bg-background/80 px-4 backdrop-blur-sm sm:px-6">
         <h1 className="text-xl font-bold text-primary flex items-center gap-2">
-            <Share2 className="w-6 h-6"/>
-            ResumeForge
+          <Share2 className="w-6 h-6"/>
+          ResumeForge
         </h1>
         <div className="flex items-center gap-2 sm:gap-4">
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
             {isSaving ? (
               <>
                 <Loader2 className="h-4 w-4 animate-spin" />
-                <span>Saving...</span>
+                <span className="hidden sm:inline">Saving...</span>
               </>
             ) : (
-               lastSaved && <span>Saved {lastSaved.toLocaleTimeString()}</span>
+              lastSaved && <span className="hidden sm:inline">Saved {lastSaved.toLocaleTimeString()}</span>
             )}
           </div>
           <Button variant="outline" onClick={() => handleSave(resumeData)} disabled={isSaving}>
-            <Save />
+            <Save className="h-4 w-4" />
             <span className="hidden sm:inline ml-2">Save Now</span>
           </Button>
-          <Button onClick={handlePrint}>
-            <Download />
-            <span className="hidden sm:inline ml-2">Download PDF</span>
+          <Button variant="outline" onClick={handlePrint}>
+            <FileText className="h-4 w-4" />
+            <span className="hidden sm:inline ml-2">Print</span>
+          </Button>
+          <Button onClick={handleDownloadPDF} disabled={isGeneratingPDF}>
+            {isGeneratingPDF ? (
+              <>
+                <Loader2 className="h-4 w-4 animate-spin" />
+                <span className="hidden sm:inline ml-2">Generating...</span>
+              </>
+            ) : (
+              <>
+                <Download className="h-4 w-4" />
+                <span className="hidden sm:inline ml-2">Download PDF</span>
+              </>
+            )}
           </Button>
         </div>
       </header>
@@ -113,7 +148,7 @@ export default function Home() {
           <ResumeForm resumeData={resumeData} setResumeData={setResumeData} />
         </div>
         <div className="flex justify-center items-start print-container">
-           <ResumePreview resumeData={resumeData} />
+          <ResumePreview resumeData={resumeData} />
         </div>
       </main>
     </div>
