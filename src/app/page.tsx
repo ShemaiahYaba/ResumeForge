@@ -143,11 +143,11 @@ export default function Home() {
           </Button>
         </div>
       </header>
-      <main className="flex-1 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1fr_auto] gap-4 p-4 md:p-6">
-        <div className="no-print lg:max-w-3xl overflow-y-auto">
+      <main className="flex-1 grid h-[calc(100vh-4rem)] w-full max-w-[1400px] mx-auto grid-cols-1 gap-4 p-4 md:grid-cols-2 md:p-6 lg:grid-cols-[minmax(0,1fr)_minmax(360px,860px)] lg:items-start">
+        <div className="no-print h-full overflow-y-auto lg:max-w-3xl">
           <ResumeForm resumeData={resumeData} setResumeData={setResumeData} />
         </div>
-        <div className="flex justify-center items-start print-container">
+        <div className="print-container flex items-start justify-center lg:sticky lg:top-20 lg:self-start">
           <ResumePreview resumeData={resumeData} />
         </div>
       </main>

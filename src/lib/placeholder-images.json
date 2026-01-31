@@ -3,37 +3,37 @@
     {
       "id": "template-professional",
       "description": "Thumbnail for Professional resume template, clean sidebar layout with blue accents",
-      "imageUrl": "https://images.unsplash.com/photo-1586281380349-632531db7ed4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400",
+      "imageUrl": "/assets/img/professional.png",
       "imageHint": "professional resume template"
     },
     {
       "id": "template-executive",
       "description": "Thumbnail for Executive resume template, modern dark sidebar design",
-      "imageUrl": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400",
+      "imageUrl": "/assets/img/executive.png",
       "imageHint": "executive resume template"
     },
     {
       "id": "template-chronological",
       "description": "Thumbnail for Chronological resume template, a classic single-column design with green accents",
-      "imageUrl": "https://images.unsplash.com/photo-1579621970795-87f9a7933112?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400",
+      "imageUrl": "/assets/img/chronological.png",
       "imageHint": "chronological resume template"
     },
     {
       "id": "template-traditional",
       "description": "Thumbnail for Traditional resume template, a classic single-column design with gold accents",
-      "imageUrl": "https://images.unsplash.com/photo-1528747045269-390a33219522?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400",
+      "imageUrl": "/assets/img/traditional.png",
       "imageHint": "traditional resume template"
     },
     {
       "id": "template-academic",
       "description": "Thumbnail for Academic resume template, a formal design for academics",
-      "imageUrl": "https://images.unsplash.com/photo-1588615433934-2117a4c9a55c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400",
+      "imageUrl": "/assets/img/academic.png",
       "imageHint": "academic resume template"
     },
     {
       "id": "template-creative",
       "description": "Thumbnail for Creative resume template, a design for graphic designers",
-      "imageUrl": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=400",
+      "imageUrl": "/assets/img/creative.png",
       "imageHint": "creative resume template"
     }
   ]

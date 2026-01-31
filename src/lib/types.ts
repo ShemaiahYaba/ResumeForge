@@ -55,6 +55,14 @@ export type Language = {
   fluency: string;
 };
 
+export type Reference = {
+  id: string;
+  name: string;
+  title: string;
+  phone: string;
+  email: string;
+};
+
 export type Publication = {
   id: string;
   title: string;
@@ -84,5 +92,6 @@ export type ResumeData = {
   publications?: Publication[];
   researchExperience?: ResearchExperience[];
   professionalMemberships?: ProfessionalMembership[];
+  references?: Reference[];
   template: Template;
 };

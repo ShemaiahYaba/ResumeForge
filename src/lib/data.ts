@@ -83,5 +83,10 @@ export const initialData: ResumeData = {
       date: '',
     },
   ],
+  languages: [],
+  publications: [],
+  researchExperience: [],
+  professionalMemberships: [],
+  references: [],
   template: 'creative',
 };

@@ -30,29 +30,38 @@ const ExecutiveTemplate = ({ data }: TemplateProps) => {
   };
 
   const primaryColor = '#d8609c';
+  const dividerColor = '#1f2937';
+
+  const formatLinkedIn = (value?: string) => {
+    if (!value) return '';
+    const trimmed = value.trim();
+    const withoutScheme = trimmed.replace(/^https?:\/\//i, '').replace(/^www\./i, '');
+    if (withoutScheme.includes('linkedin.com')) return withoutScheme;
+    return `linkedin.com/in/${withoutScheme}`;
+  };
 
   return (
     <div className="bg-white font-sans text-sm">
       {/* Header */}
       <header style={headerStyle} className="text-white text-center p-8">
         <h1 className="text-4xl font-bold uppercase tracking-wider">{personalInfo.name}</h1>
-        {personalInfo.jobTitle && (
-          <p className="text-lg uppercase tracking-wide mt-2">{personalInfo.jobTitle}</p>
+        {personalInfo.title && (
+          <p className="text-lg uppercase tracking-wide mt-2">{personalInfo.title}</p>
         )}
       </header>
 
       <div className="flex">
         {/* Left Column */}
-        <div className="w-[38%] p-8 border-r-2 border-black">
+        <div className="w-[38%] p-8 border-r-2" style={{ borderColor: dividerColor }}>
           {/* Contact */}
           <section className="mb-8">
             <h2 style={{ color: primaryColor }} className="text-lg font-bold uppercase mb-4">Contact</h2>
             <div className="space-y-3 text-xs">
-              {personalInfo.phone && <p className="flex items-center"><Phone size={14} className="mr-3" /> {personalInfo.phone}</p>}
-              {personalInfo.email && <p className="flex items-center"><Mail size={14} className="mr-3" /> {personalInfo.email}</p>}
-              {personalInfo.address && <p className="flex items-center"><MapPin size={14} className="mr-3" /> {personalInfo.address}</p>}
-              {personalInfo.linkedin && <p className="flex items-center"><Linkedin size={14} className="mr-3" /> {personalInfo.linkedin}</p>}
-              {personalInfo.website && <p className="flex items-center"><Globe size={14} className="mr-3" /> {personalInfo.website}</p>}
+              {personalInfo.phone && <p className="flex items-start gap-3"><Phone size={14} className="mt-[1px]" /> {personalInfo.phone}</p>}
+              {personalInfo.email && <p className="flex items-start gap-3"><Mail size={14} className="mt-[1px]" /> {personalInfo.email}</p>}
+              {personalInfo.address && <p className="flex items-start gap-3"><MapPin size={14} className="mt-[1px]" /> {personalInfo.address}</p>}
+              {personalInfo.linkedin && <p className="flex items-start gap-3"><Linkedin size={14} className="mt-[1px]" /> {formatLinkedIn(personalInfo.linkedin)}</p>}
+              {personalInfo.website && <p className="flex items-start gap-3"><Globe size={14} className="mt-[1px]" /> {personalInfo.website}</p>}
             </div>
           </section>
 
@@ -109,8 +118,12 @@ const ExecutiveTemplate = ({ data }: TemplateProps) => {
               <h2 style={{ color: primaryColor }} className="text-lg font-bold uppercase mb-4">Professional Experience</h2>
               {experience.map(exp => (
                 <div key={exp.id} className="mb-6">
-                  <p className="font-bold text-sm">{exp.company} - {exp.location}</p>
-                  <p className="text-xs text-gray-500 mb-1">{formatDate(exp.startDate)} - {exp.endDate ? formatDate(exp.endDate) : 'PRESENT'}</p>
+                  <div className="flex justify-between items-baseline gap-4">
+                    <p className="font-bold text-sm">{exp.company}{exp.location ? ` - ${exp.location}` : ''}</p>
+                    <p className="text-xs text-gray-500 whitespace-nowrap">
+                      {formatDate(exp.startDate)} - {exp.endDate ? formatDate(exp.endDate) : 'PRESENT'}
+                    </p>
+                  </div>
                   <p className="italic font-semibold text-sm mb-2">{exp.title}</p>
                   <ul className="list-disc list-outside pl-5 space-y-1 text-xs text-gray-700">
                     {exp.bullets.map(bullet => <li key={bullet.id}>{bullet.text}</li>)}
@@ -124,9 +137,9 @@ const ExecutiveTemplate = ({ data }: TemplateProps) => {
           {references && references.length > 0 && (
             <section>
               <h2 style={{ color: primaryColor }} className="text-lg font-bold uppercase mb-4">Reference</h2>
-              <div className="flex justify-between text-xs">
+              <div className="grid grid-cols-2 gap-6 text-xs">
                 {references.map(ref => (
-                  <div key={ref.id} className="w-[48%]">
+                  <div key={ref.id}>
                     <p className="font-bold">{ref.name}</p>
                     <p>{ref.title}</p>
                     <p>Phone: {ref.phone}</p>

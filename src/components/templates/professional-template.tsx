@@ -26,6 +26,14 @@ const ProfessionalTemplate = ({ data }: TemplateProps) => {
   const primaryColor = '#b59458'; // Gold
   const secondaryColor = '#434E60'; // Dark Slate Blue
 
+  const formatLinkedIn = (value?: string) => {
+    if (!value) return '';
+    const trimmed = value.trim();
+    const withoutScheme = trimmed.replace(/^https?:\/\//i, '').replace(/^www\./i, '');
+    if (withoutScheme.includes('linkedin.com')) return withoutScheme;
+    return `linkedin.com/in/${withoutScheme}`;
+  };
+
   return (
     <div className="bg-white p-10 font-serif text-[10.5pt] leading-normal">
       {/* Header */}
@@ -33,19 +41,18 @@ const ProfessionalTemplate = ({ data }: TemplateProps) => {
         <h1 className="text-4xl font-bold uppercase tracking-[0.2em]" style={{ color: primaryColor }}>
           {personalInfo.name}
         </h1>
-        {personalInfo.jobTitle && (
+        {personalInfo.title && (
           <p className="text-xl font-light tracking-[0.1em] text-gray-600 mt-2">
-            {personalInfo.jobTitle}
+            {personalInfo.title}
           </p>
         )}
         <div className="mt-6 border-t border-gray-300 pt-4">
-          <div className="flex justify-center items-center text-xs text-gray-500 space-x-6">
-              {personalInfo.phone && <p>{personalInfo.phone}</p>}
-              {personalInfo.email && <p>{personalInfo.email}</p>}
-              {personalInfo.website && <p>{personalInfo.website}</p>}
-              {personalInfo.address && <p>{personalInfo.address}</p>}
-              {personalInfo.linkedin && <p>linkedin.com/in/{personalInfo.linkedin}</p>}
-              {personalInfo.twitter && <p>twitter.com/{personalInfo.twitter}</p>}
+          <div className="grid grid-cols-2 gap-x-8 gap-y-1 text-xs text-gray-500">
+            {personalInfo.phone && <p>{personalInfo.phone}</p>}
+            {personalInfo.email && <p>{personalInfo.email}</p>}
+            {personalInfo.website && <p>{personalInfo.website}</p>}
+            {personalInfo.address && <p>{personalInfo.address}</p>}
+            {personalInfo.linkedin && <p>{formatLinkedIn(personalInfo.linkedin)}</p>}
           </div>
         </div>
       </header>

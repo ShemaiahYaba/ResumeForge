@@ -46,7 +46,7 @@ const ChronologicalTemplate = ({ data }: TemplateProps) => {
         <div>
           <h1 className="text-4xl font-extrabold tracking-wide uppercase">{personalInfo.name}</h1>
           <p className="text-md font-semibold tracking-widest" style={{ color: primaryColor }}>
-            CHRONOLOGICAL RESUME
+            {personalInfo.title ? personalInfo.title.toUpperCase() : "CHRONOLOGICAL RESUME"}
           </p>
         </div>
         <div className="text-right text-xs whitespace-nowrap">
@@ -125,7 +125,12 @@ const ChronologicalTemplate = ({ data }: TemplateProps) => {
         {languages && languages.length > 0 && (
             <Section title="Languages">
                  <ul className="list-disc list-outside pl-4 space-y-1 text-xs">
-                    {languages.map(lang => <li key={lang.id}>{lang.name}</li>)}
+                    {languages.map(lang => (
+                      <li key={lang.id}>
+                        {lang.name}
+                        {lang.fluency ? ` — ${lang.fluency}` : ''}
+                      </li>
+                    ))}
                 </ul>
             </Section>
         )}

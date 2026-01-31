@@ -30,8 +30,20 @@ export default function PersonalInfoForm({ personalInfo, onUpdate }: PersonalInf
         <Input id="phone" name="phone" value={personalInfo.phone} onChange={handleChange} placeholder="123-456-7890" />
       </div>
       <div className="space-y-2">
+        <Label htmlFor="title">Professional Role</Label>
+        <Input id="title" name="title" value={personalInfo.title ?? ""} onChange={handleChange} placeholder="Software Engineer" />
+      </div>
+      <div className="space-y-2">
         <Label htmlFor="address">Address</Label>
         <Input id="address" name="address" value={personalInfo.address} onChange={handleChange} placeholder="City, State" />
+      </div>
+      <div className="space-y-2">
+        <Label htmlFor="linkedin">LinkedIn</Label>
+        <Input id="linkedin" name="linkedin" value={personalInfo.linkedin} onChange={handleChange} placeholder="linkedin.com/in/yourname" />
+      </div>
+      <div className="space-y-2">
+        <Label htmlFor="website">Website</Label>
+        <Input id="website" name="website" value={personalInfo.website ?? ""} onChange={handleChange} placeholder="yourportfolio.com" />
       </div>
       <div className="md:col-span-2 space-y-2">
         <Label htmlFor="summary">Professional Summary</Label>
