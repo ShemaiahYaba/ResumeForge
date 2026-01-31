@@ -4,6 +4,9 @@ import type { ResumeData } from '@/lib/types';
 import ProfessionalTemplate from './templates/professional-template';
 import ExecutiveTemplate from './templates/executive-template';
 import ChronologicalTemplate from './templates/chronological-template';
+import TraditionalTemplate from './templates/traditional-template';
+import AcademicTemplate from './templates/academic-template';
+import CreativeTemplate from './templates/creative-template';
 import { Card } from '@/components/ui/card';
 
 type ResumePreviewProps = {
@@ -19,6 +22,12 @@ export default function ResumePreview({ resumeData }: ResumePreviewProps) {
         return <ExecutiveTemplate data={resumeData} />;
       case 'chronological':
         return <ChronologicalTemplate data={resumeData} />;
+      case 'traditional':
+        return <TraditionalTemplate data={resumeData} />;
+      case 'academic':
+        return <AcademicTemplate data={resumeData} />;
+      case 'creative':
+        return <CreativeTemplate data={resumeData} />;
       default:
         return <ProfessionalTemplate data={resumeData} />;
     }

@@ -32,6 +32,24 @@ const templates: { id: Template; name: string; imageId: string; description: str
     imageId: 'template-chronological',
     description: 'A classic single-column resume design'
   },
+  {
+    id: 'traditional',
+    name: 'Traditional',
+    imageId: 'template-traditional',
+    description: 'A classic design with a touch of gold'
+  },
+  {
+    id: 'academic',
+    name: 'Academic',
+    imageId: 'template-academic',
+    description: 'A template for academics with publications'
+  },
+  {
+    id: 'creative',
+    name: 'Creative',
+    imageId: 'template-creative',
+    description: 'A creative resume for graphic designers'
+  },
 ];
 
 export default function TemplateSelectForm({ currentTemplate, onTemplateChange }: TemplateSelectFormProps) {

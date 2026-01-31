@@ -13,22 +13,28 @@
       "imageHint": "executive resume template"
     },
     {
-      "id": "template-onyx",
-      "description": "Thumbnail for Onyx resume template, classic single-column layout",
-      "imageUrl": "https://images.unsplash.com/photo-1758844898896-956ccda94b59?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400",
-      "imageHint": "resume template"
-    },
-    {
-      "id": "template-sapphire",
-      "description": "Thumbnail for Sapphire resume template, contemporary two-column design",
-      "imageUrl": "https://images.unsplash.com/photo-1554224155-cfa08c2a758f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400",
-      "imageHint": "resume layout"
-    },
-    {
       "id": "template-chronological",
       "description": "Thumbnail for Chronological resume template, a classic single-column design with green accents",
       "imageUrl": "https://images.unsplash.com/photo-1579621970795-87f9a7933112?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400",
       "imageHint": "chronological resume template"
+    },
+    {
+      "id": "template-traditional",
+      "description": "Thumbnail for Traditional resume template, a classic single-column design with gold accents",
+      "imageUrl": "https://images.unsplash.com/photo-1528747045269-390a33219522?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400",
+      "imageHint": "traditional resume template"
+    },
+    {
+      "id": "template-academic",
+      "description": "Thumbnail for Academic resume template, a formal design for academics",
+      "imageUrl": "https://images.unsplash.com/photo-1588615433934-2117a4c9a55c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400",
+      "imageHint": "academic resume template"
+    },
+    {
+      "id": "template-creative",
+      "description": "Thumbnail for Creative resume template, a design for graphic designers",
+      "imageUrl": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=400",
+      "imageHint": "creative resume template"
     }
   ]
 }

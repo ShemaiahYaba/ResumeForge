@@ -1,10 +1,13 @@
 export type PersonalInfo = {
   name: string;
+  title?: string;
   email: string;
   phone: string;
   address: string;
   linkedin: string;
   summary: string;
+  profileImageUrl?: string;
+  website?: string;
 };
 
 export type Experience = {
@@ -25,6 +28,7 @@ export type Education = {
   startDate: string;
   graduationDate: string;
   gpa?: string; // GPA is optional
+  location?: string;
 };
 
 export type Skill = {
@@ -51,14 +55,34 @@ export type Language = {
   fluency: string;
 };
 
-export type Template = 'onyx' | 'sapphire' | 'professional' | 'executive' | 'chronological';
+export type Publication = {
+  id: string;
+  title: string;
+  authors: string;
+  journal: string;
+};
+
+export type ResearchExperience = {
+    id: string;
+    activity: string;
+};
+
+export type ProfessionalMembership = {
+    id: string;
+    organization: string;
+};
+
+export type Template = 'onyx' | 'sapphire' | 'professional' | 'executive' | 'chronological' | 'traditional' | 'academic' | 'creative';
 
 export type ResumeData = {
   personalInfo: PersonalInfo;
   experience: Experience[];
   education: Education[];
   skills: SkillCategory[];
-  certifications?: Certification[]; // Optional array of certifications
-  languages?: Language[]; // Optional array of languages
+  certifications?: Certification[];
+  languages?: Language[];
+  publications?: Publication[];
+  researchExperience?: ResearchExperience[];
+  professionalMemberships?: ProfessionalMembership[];
   template: Template;
 };
