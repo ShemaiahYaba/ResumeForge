@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import { Download, Loader2, Save, Share2, FileText } from 'lucide-react';
+import { Download, Loader2, Save, Share2, FileText, Eye } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
 import type { ResumeData } from '@/lib/types';
@@ -9,6 +9,7 @@ import { initialData } from '@/lib/data';
 import { generateAndDownloadPDF } from '@/lib/pdf-generator';
 import ResumeForm from '@/components/resume-form';
 import ResumePreview from '@/components/resume-preview';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 
 export default function Home() {
   const [resumeData, setResumeData] = useState<ResumeData | null>(null);
@@ -55,7 +56,6 @@ export default function Home() {
     }
   }, []);
 
-  // Auto-save logic
   useEffect(() => {
     if (!resumeData) return;
 
@@ -144,13 +144,31 @@ export default function Home() {
         </div>
       </header>
       <main className="flex-1 grid h-[calc(100vh-4rem)] w-full max-w-[1400px] mx-auto grid-cols-1 gap-4 p-4 md:grid-cols-2 md:p-6 lg:grid-cols-[minmax(0,1fr)_minmax(360px,860px)] lg:items-start">
-        <div className="no-print h-full overflow-y-auto lg:max-w-3xl">
+        <div className="no-print h-full overflow-y-auto lg:max-w-3xl pb-24 lg:pb-0">
           <ResumeForm resumeData={resumeData} setResumeData={setResumeData} />
         </div>
-        <div className="print-container flex items-start justify-center lg:sticky lg:top-20 lg:self-start">
+        <div className="print-container hidden lg:flex items-start justify-center lg:sticky lg:top-20 lg:self-start">
           <ResumePreview resumeData={resumeData} />
         </div>
       </main>
+      <footer className="no-print fixed bottom-0 z-10 flex h-16 w-full items-center justify-center border-t bg-background/80 px-4 backdrop-blur-sm lg:hidden">
+        <Dialog>
+            <DialogTrigger asChild>
+              <Button>
+                <Eye className="h-4 w-4" />
+                <span className="ml-2">See Preview</span>
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="max-w-[90vw] h-[85vh] flex flex-col">
+              <DialogHeader>
+                <DialogTitle>Resume Preview</DialogTitle>
+              </DialogHeader>
+              <div className="flex-1 overflow-auto p-4 flex justify-center items-start">
+                <ResumePreview resumeData={resumeData} />
+              </div>
+            </DialogContent>
+          </Dialog>
+      </footer>
     </div>
   );
 }

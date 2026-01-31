@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useEffect, useRef } from 'react';
 import type { ResumeData } from '@/lib/types';
 import ProfessionalTemplate from './templates/professional-template';
 import ExecutiveTemplate from './templates/executive-template';
@@ -14,6 +15,34 @@ type ResumePreviewProps = {
 };
 
 export default function ResumePreview({ resumeData }: ResumePreviewProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [scale, setScale] = useState(1);
+
+  useEffect(() => {
+    const updateScale = () => {
+      if (containerRef.current) {
+        const containerWidth = containerRef.current.offsetWidth;
+        const resumeWidth = 794; // A4 width at 96 DPI
+
+        if (containerWidth < resumeWidth) {
+          setScale(containerWidth / resumeWidth);
+        } else {
+          setScale(1);
+        }
+      }
+    };
+
+    // Initial scale calculation
+    // Delay to ensure container has been rendered and has a width
+    setTimeout(updateScale, 100);
+
+    // Update scale on window resize
+    window.addEventListener('resize', updateScale);
+    return () => {
+      window.removeEventListener('resize', updateScale);
+    };
+  }, []);
+
   const renderTemplate = () => {
     switch (resumeData.template) {
       case 'professional':
@@ -34,10 +63,15 @@ export default function ResumePreview({ resumeData }: ResumePreviewProps) {
   };
 
   return (
-    // A4 aspect ratio: 1 / 1.414. Width is 8.5in, height 11in. Or 210mm/297mm
-    <div className="w-full lg:w-auto lg:h-full flex justify-center items-start lg:sticky lg:top-20">
+    // This container is used to measure the available width
+    <div ref={containerRef} className="w-full h-full flex justify-center items-start">
+      {/* The Card is the resume itself, with a fixed A4 size */}
       <Card
-        className="printable-area aspect-[210/297] w-full max-w-[840px] lg:w-[794px] h-auto lg:h-[1123px] overflow-hidden shadow-lg bg-white scale-95 lg:scale-100 origin-top"
+        className="printable-area aspect-[210/297] w-[794px] h-[1123px] overflow-hidden shadow-lg bg-white"
+        style={{
+          transform: `scale(${scale})`,
+          transformOrigin: 'top',
+        }}
       >
         {renderTemplate()}
       </Card>
