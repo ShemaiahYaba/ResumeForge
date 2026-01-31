@@ -21,14 +21,15 @@ export default function ResumePreview({ resumeData }: ResumePreviewProps) {
   useEffect(() => {
     const updateScale = () => {
       if (containerRef.current) {
-        const containerWidth = containerRef.current.offsetWidth;
+        const containerWidth = containerRef.current.clientWidth;
+        const containerHeight = containerRef.current.clientHeight;
         const resumeWidth = 794; // A4 width at 96 DPI
+        const resumeHeight = 1123; // A4 height at 96 DPI
+        const widthScale = containerWidth / resumeWidth;
+        const heightScale = containerHeight / resumeHeight;
+        const nextScale = Math.min(widthScale, heightScale, 1);
 
-        if (containerWidth < resumeWidth) {
-          setScale(containerWidth / resumeWidth);
-        } else {
-          setScale(1);
-        }
+        setScale(nextScale);
       }
     };
 
@@ -64,7 +65,10 @@ export default function ResumePreview({ resumeData }: ResumePreviewProps) {
 
   return (
     // This container is used to measure the available width
-    <div ref={containerRef} className="w-full h-full flex justify-center items-start">
+    <div
+      ref={containerRef}
+      className="w-full h-full flex justify-center items-start overflow-hidden"
+    >
       {/* The Card is the resume itself, with a fixed A4 size */}
       <Card
         className="printable-area aspect-[210/297] w-[794px] h-[1123px] overflow-hidden shadow-lg bg-white"
