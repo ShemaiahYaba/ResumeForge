@@ -3,6 +3,7 @@ export type PersonalInfo = {
   email: string;
   phone: string;
   address: string;
+  linkedin: string;
   summary: string;
 };
 
@@ -11,7 +12,7 @@ export type Experience = {
   company: string;
   title: string;
   startDate: string;
-  endDate: string;
+  endDate: string | null; // Can be null if it's the current job
   location: string;
   bullets: { id: string; text: string }[];
 };
@@ -21,8 +22,9 @@ export type Education = {
   school: string;
   degree: string;
   fieldOfStudy: string;
+  startDate: string;
   graduationDate: string;
-  gpa: string;
+  gpa?: string; // GPA is optional
 };
 
 export type Skill = {
@@ -36,13 +38,27 @@ export type SkillCategory = {
   skills: Skill[];
 };
 
-// Updated to include the new templates
-export type Template = 'onyx' | 'sapphire' | 'professional' | 'executive';
+export type Certification = {
+  id: string;
+  name: string;
+  issuer: string;
+  date: string;
+};
+
+export type Language = {
+  id: string;
+  name: string;
+  fluency: string;
+};
+
+export type Template = 'onyx' | 'sapphire' | 'professional' | 'executive' | 'chronological';
 
 export type ResumeData = {
   personalInfo: PersonalInfo;
   experience: Experience[];
   education: Education[];
   skills: SkillCategory[];
+  certifications?: Certification[]; // Optional array of certifications
+  languages?: Language[]; // Optional array of languages
   template: Template;
 };

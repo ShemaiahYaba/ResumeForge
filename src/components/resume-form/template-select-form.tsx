@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import * as React from 'react';
 import Image from 'next/image';
@@ -26,17 +26,11 @@ const templates: { id: Template; name: string; imageId: string; description: str
     imageId: 'template-executive',
     description: 'Modern dark sidebar design'
   },
-  { 
-    id: 'onyx', 
-    name: 'Onyx', 
-    imageId: 'template-onyx',
-    description: 'Classic single-column layout'
-  },
-  { 
-    id: 'sapphire', 
-    name: 'Sapphire', 
-    imageId: 'template-sapphire',
-    description: 'Contemporary two-column design'
+  {
+    id: 'chronological',
+    name: 'Chronological',
+    imageId: 'template-chronological',
+    description: 'A classic single-column resume design'
   },
 ];
 

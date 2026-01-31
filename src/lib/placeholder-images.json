@@ -23,6 +23,12 @@
       "description": "Thumbnail for Sapphire resume template, contemporary two-column design",
       "imageUrl": "https://images.unsplash.com/photo-1554224155-cfa08c2a758f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400",
       "imageHint": "resume layout"
+    },
+    {
+      "id": "template-chronological",
+      "description": "Thumbnail for Chronological resume template, a classic single-column design with green accents",
+      "imageUrl": "https://images.unsplash.com/photo-1579621970795-87f9a7933112?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400",
+      "imageHint": "chronological resume template"
     }
   ]
 }

@@ -1,10 +1,9 @@
-"use client";
+'use client';
 
 import type { ResumeData } from '@/lib/types';
-import OnyxTemplate from './templates/onyx-template';
-import SapphireTemplate from './templates/sapphire-template';
 import ProfessionalTemplate from './templates/professional-template';
 import ExecutiveTemplate from './templates/executive-template';
+import ChronologicalTemplate from './templates/chronological-template';
 import { Card } from '@/components/ui/card';
 
 type ResumePreviewProps = {
@@ -14,14 +13,12 @@ type ResumePreviewProps = {
 export default function ResumePreview({ resumeData }: ResumePreviewProps) {
   const renderTemplate = () => {
     switch (resumeData.template) {
-      case 'onyx':
-        return <OnyxTemplate data={resumeData} />;
-      case 'sapphire':
-        return <SapphireTemplate data={resumeData} />;
       case 'professional':
         return <ProfessionalTemplate data={resumeData} />;
       case 'executive':
         return <ExecutiveTemplate data={resumeData} />;
+      case 'chronological':
+        return <ChronologicalTemplate data={resumeData} />;
       default:
         return <ProfessionalTemplate data={resumeData} />;
     }
