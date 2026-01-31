@@ -2,15 +2,37 @@ import { pdf } from '@react-pdf/renderer';
 import type { ResumeData } from './types';
 import { ProfessionalPDFTemplate } from '@/components/pdf-templates/professional-pdf-template';
 import { ExecutivePDFTemplate } from '@/components/pdf-templates/executive-pdf-template';
+import { ChronologicalPDFTemplate } from '@/components/pdf-templates/chronological-pdf-template';
+import { TraditionalPDFTemplate } from '@/components/pdf-templates/traditional-pdf-template';
+import { AcademicPDFTemplate } from '@/components/pdf-templates/academic-pdf-template';
+import { CreativePDFTemplate } from '@/components/pdf-templates/creative-pdf-template';
 import React from 'react';
 
 export async function generateResumePDF(resumeData: ResumeData): Promise<Blob> {
-  // Select the appropriate PDF template based on resume template selection
-  const PDFTemplate = resumeData.template === 'professional' 
-    ? ProfessionalPDFTemplate 
-    : ExecutivePDFTemplate;
+  let PDFTemplate = ProfessionalPDFTemplate;
 
-  // Generate the PDF document
+  switch (resumeData.template) {
+    case 'executive':
+      PDFTemplate = ExecutivePDFTemplate;
+      break;
+    case 'chronological':
+      PDFTemplate = ChronologicalPDFTemplate;
+      break;
+    case 'traditional':
+      PDFTemplate = TraditionalPDFTemplate;
+      break;
+    case 'academic':
+      PDFTemplate = AcademicPDFTemplate;
+      break;
+    case 'creative':
+      PDFTemplate = CreativePDFTemplate;
+      break;
+    case 'professional':
+    default:
+      PDFTemplate = ProfessionalPDFTemplate;
+      break;
+  }
+
   const doc = <PDFTemplate data={resumeData} />;
   
   // Convert to blob
