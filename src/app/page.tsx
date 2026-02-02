@@ -159,11 +159,11 @@ export default function Home() {
                 <span className="ml-2">See Preview</span>
               </Button>
             </DialogTrigger>
-            <DialogContent className="max-w-[90vw] h-[85vh] flex flex-col">
-              <DialogHeader>
+            <DialogContent className="max-w-[95vw] w-[95vw] h-[90vh] flex flex-col p-2 sm:p-4">
+              <DialogHeader className="px-2">
                 <DialogTitle>Resume Preview</DialogTitle>
               </DialogHeader>
-              <div className="flex-1 overflow-auto p-4 flex justify-center items-start">
+              <div className="flex-1 overflow-hidden">
                 <ResumePreview resumeData={resumeData} />
               </div>
             </DialogContent>
