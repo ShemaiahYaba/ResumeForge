@@ -31,7 +31,7 @@ export default function TraditionalTemplate({ data }: { data: ResumeData }) {
 
       {/* Experience */}
       <section className="mb-6">
-        <h3 className={sectionTitleClass}>VOLUNTEER EXPERIENCE</h3>
+        <h3 className={sectionTitleClass}>PROFESSIONAL EXPERIENCE</h3>
         {experience.map((exp) => (
           <div key={exp.id} className="mb-4">
             <div className="flex justify-between items-baseline">

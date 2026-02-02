@@ -133,7 +133,7 @@ export const TraditionalPDFTemplate = ({ data }: TraditionalPDFTemplateProps) =>
 
         {experience.length > 0 && (
           <View style={styles.section}>
-            <Text style={styles.sectionTitle}>Volunteer Experience</Text>
+            <Text style={styles.sectionTitle}>Professional Experience</Text>
             {experience.map((exp) => (
               <View key={exp.id} style={{ marginBottom: 8 }}>
                 <View style={styles.expHeader}>

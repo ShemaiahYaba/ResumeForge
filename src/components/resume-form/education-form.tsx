@@ -30,6 +30,7 @@ export default function EducationForm({ education, onUpdate }: EducationFormProp
       school: '',
       degree: '',
       fieldOfStudy: '',
+      startDate: '',
       graduationDate: '',
       gpa: '',
     }];
@@ -106,6 +107,10 @@ export default function EducationForm({ education, onUpdate }: EducationFormProp
               <div className="space-y-2">
                 <Label htmlFor={`fieldOfStudy-${edu.id}`}>Field of Study</Label>
                 <Input id={`fieldOfStudy-${edu.id}`} value={edu.fieldOfStudy} onChange={(e) => updateEducation(index, { fieldOfStudy: e.target.value })} />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor={`startDate-${edu.id}`}>Start Date</Label>
+                <Input id={`startDate-${edu.id}`} type="month" value={edu.startDate} onChange={(e) => updateEducation(index, { startDate: e.target.value })} />
               </div>
               <div className="space-y-2">
                 <Label htmlFor={`graduationDate-${edu.id}`}>Graduation Date</Label>

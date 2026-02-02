@@ -2,9 +2,16 @@
 import type { ResumeData } from '@/lib/types';
 import Image from 'next/image';
 
-// Define the props for the CreativeTemplate component
 export default function CreativeTemplate({ data }: { data: ResumeData }) {
   const { personalInfo, experience, education, skills, certifications } = data;
+
+  const formatDate = (dateString: string | null | undefined) => {
+    if (!dateString) return '';
+    if (/^\d{4}$/.test(dateString.trim())) return dateString.trim();
+    const date = new Date(dateString);
+    if (isNaN(date.getTime())) return dateString;
+    return date.toLocaleDateString('en-US', { month: 'short', year: 'numeric', timeZone: 'UTC' });
+  };
 
   const sectionTitleClass = "text-lg font-bold text-gray-800 uppercase tracking-wider mb-4";
 
@@ -62,7 +69,9 @@ export default function CreativeTemplate({ data }: { data: ResumeData }) {
                 {experience.map((exp) => (
                 <div key={exp.id} className="mb-4">
                     <h4 className="font-bold text-md text-gray-800">{exp.company} - {exp.title}</h4>
-                    <p className="text-gray-500 text-xs mb-2">{exp.startDate} &ndash; {exp.endDate}</p>
+                    <p className="text-gray-500 text-xs mb-2">
+                      {formatDate(exp.startDate)} – {exp.endDate ? formatDate(exp.endDate) : 'Present'}
+                    </p>
                     <ul className="list-disc list-inside text-xs space-y-1">
                         {exp.bullets.map(bullet => <li key={bullet.id}>{bullet.text}</li>)}
                     </ul>
@@ -76,9 +85,11 @@ export default function CreativeTemplate({ data }: { data: ResumeData }) {
                 <h3 className={sectionTitleClass}>Education</h3>
                 {education.map((edu) => (
                 <div key={edu.id} className="mb-3">
-                    <h4 className="font-bold text-md">{edu.degree} in {edu.fieldOfStudy}</h4>
-                    <p className="italic">{edu.school} - {edu.location}</p>
-                    <p className="text-gray-500 text-xs">{edu.startDate} &ndash; {edu.graduationDate}</p>
+                    <h4 className="font-bold text-md">{edu.degree}{edu.fieldOfStudy ? ` in ${edu.fieldOfStudy}` : ''}</h4>
+                    <p className="italic">{edu.school}{edu.location ? ` - ${edu.location}` : ''}</p>
+                    <p className="text-gray-500 text-xs">
+                      {formatDate(edu.startDate)} – {edu.graduationDate ? formatDate(edu.graduationDate) : 'Present'}
+                    </p>
                     {edu.gpa && <p className="text-gray-500 text-xs">GPA: {edu.gpa}</p>}
                 </div>
                 ))}

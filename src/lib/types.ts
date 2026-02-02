@@ -15,7 +15,7 @@ export type Experience = {
   company: string;
   title: string;
   startDate: string;
-  endDate: string | null; // Can be null if it's the current job
+  endDate: string | null;
   location: string;
   bullets: { id: string; text: string }[];
 };
@@ -27,7 +27,7 @@ export type Education = {
   fieldOfStudy: string;
   startDate: string;
   graduationDate: string;
-  gpa?: string; // GPA is optional
+  gpa?: string;
   location?: string;
 };
 
@@ -80,7 +80,7 @@ export type ProfessionalMembership = {
     organization: string;
 };
 
-export type Template = 'onyx' | 'sapphire' | 'professional' | 'executive' | 'chronological' | 'traditional' | 'academic' | 'creative';
+export type Template = 'professional' | 'executive' | 'chronological' | 'traditional' | 'academic' | 'creative';
 
 export type ResumeData = {
   personalInfo: PersonalInfo;

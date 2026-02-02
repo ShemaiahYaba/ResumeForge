@@ -102,6 +102,17 @@ export const CreativePDFTemplate = ({ data }: CreativePDFTemplateProps) => {
   const firstName = nameParts[0] || '';
   const lastName = nameParts.slice(1).join(' ');
 
+  const formatDate = (dateString: string | null | undefined) => {
+    if (!dateString) return '';
+    // Handle plain year strings like "2022"
+    if (/^\d{4}$/.test(dateString.trim())) return dateString.trim();
+    const date = new Date(dateString);
+    if (isNaN(date.getTime())) return dateString;
+    const month = date.toLocaleDateString('en-US', { month: 'short', timeZone: 'UTC' });
+    const year = date.toLocaleDateString('en-US', { year: 'numeric', timeZone: 'UTC' });
+    return `${month} ${year}`;
+  };
+
   return (
     <Document>
       <Page size="A4" style={styles.page}>
@@ -149,7 +160,7 @@ export const CreativePDFTemplate = ({ data }: CreativePDFTemplateProps) => {
                 <View key={exp.id} style={styles.expItem}>
                   <Text style={styles.expTitle}>{exp.company} - {exp.title}</Text>
                   <Text style={styles.expDates}>
-                    {exp.startDate} - {exp.endDate || 'Present'}
+                    {formatDate(exp.startDate)} – {exp.endDate ? formatDate(exp.endDate) : 'Present'}
                   </Text>
                   {exp.bullets.map((bullet) => (
                     <Text key={bullet.id} style={styles.bullet}>
@@ -171,7 +182,7 @@ export const CreativePDFTemplate = ({ data }: CreativePDFTemplateProps) => {
                     {edu.school}{edu.location ? ` - ${edu.location}` : ''}
                   </Text>
                   <Text style={styles.expDates}>
-                    {edu.startDate} - {edu.graduationDate}
+                    {formatDate(edu.startDate)} – {edu.graduationDate ? formatDate(edu.graduationDate) : 'Present'}
                   </Text>
                   {edu.gpa && <Text style={styles.expDates}>GPA: {edu.gpa}</Text>}
                 </View>
